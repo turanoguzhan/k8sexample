@@ -12,6 +12,6 @@ public class GreetingScheduler {
 
     @Scheduled(cron="*/5 * * * * *")
     public void scheduledWelcome(){
-        System.out.println("Welcome "+greeting);
+        System.out.println(greeting);
     }
 }
