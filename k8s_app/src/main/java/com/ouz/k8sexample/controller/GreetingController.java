@@ -12,20 +12,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class GreetingController {
 
-    @Value("${welcome.greeting}")
+    @Value("${greeting}")
     private String greeting;
 
-    @Value("${welcome.message}")
-    private String greetingMessage;
+    @Value("${message}")
+    private String message;
 
-    @GetMapping("/say-hi-to")
-    public ResponseEntity<String> sayHello(@RequestParam String name){
-        return ResponseEntity.ok("Hi. it's me, the application. Nice to see you." +
-                "\nAnd "+greeting+" to you,"+name);
+    @GetMapping("/")
+    public ResponseEntity<String> test(){
+        return ResponseEntity.ok(message);
+    }
+
+    @GetMapping("/say-hi")
+    public ResponseEntity<String> hello(@RequestParam String name){
+        return ResponseEntity.ok(greeting +" "+name+",\nit's me, the application. Nice to see you.");
     }
 
     @PostConstruct
     public void init() {
-        System.out.println("Application started with message: " + greetingMessage);
+        System.out.println("Application started with message: " + message);
     }
 }
