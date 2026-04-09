@@ -4,7 +4,7 @@ metadata:
   name: read-config
 subjects:
 - kind: ServiceAccount
-  name: my-app-sa
+  name: demo-sa
   namespace: default
 roleRef:
   kind: Role

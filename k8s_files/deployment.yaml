@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: demo
   template:
     metadata:
       labels:
-        app: my-app
+        app: demo
     spec:
-      serviceAccountName: my-app-sa
+      serviceAccountName: demo-sa
       containers:
-        - name: my-app
+        - name: demo
           image: turanoguzhan/k8s-example:latest
           ports:
             - containerPort: 8080
@@ -32,4 +32,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: app-config
+            name: demo-config
