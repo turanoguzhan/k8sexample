@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: demo
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: demo
@@ -12,19 +12,25 @@ spec:
       labels:
         app: demo
     spec:
-      serviceAccountName: demo-sa
       containers:
         - name: demo
           image: turanoguzhan/k8s-example:latest
-          ports:
-            - containerPort: 8080
+          imagePullPolicy: Always
           env:
             - name: SPRING_CONFIG_LOCATION
               value: "file:/config/application.properties"
-          resources:
-            limits:
-              cpu: "1"
-              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
           volumeMounts:
             - name: config-volume
               mountPath: /config/application.properties
